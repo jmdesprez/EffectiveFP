@@ -4,12 +4,9 @@ import exceptions.isFatal
 fun <T> (() -> T).toResult() = Result.of(this)
 fun <T : Exception> T.toResult() = Result.failure<Any>(this)
 fun <T> T.toResult() = Result.success(this)
+fun <T> T.validate(errorMessage: String = "Validation error", validator: T.() -> Boolean): Result<T> = toResult().validate(errorMessage, validator)
 fun Result<Boolean>.validate(errorMessage: String = "Validation error") = validate(errorMessage, { this == true })
 operator fun Result<Boolean>.not(): Result<Boolean> = withValue { Result.success(!this) }
-
-fun test() {
-    Result.success<Any>("ok").withError { Result.success(14) }
-}
 
 sealed class Result<S> {
 
