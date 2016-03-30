@@ -11,11 +11,19 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <kotlin.version>1.0.0</kotlin.version>
-        <assertj.version>3.3.0</assertj.version>
         <java.version>1.8</java.version>
         <javaslang.version>2.0.1</javaslang.version>
-        <junit.version>4.12</junit.version>
+
+        <spek.version>0.1.199</spek.version>
+        <assertj.version>3.4.0</assertj.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>jebrains-all</id>
+            <url>http://repository.jetbrains.com/all</url>
+        </repository>
+    </repositories>
 
     <build>
         <plugins>
@@ -83,9 +91,9 @@
             <version>${javaslang.version}</version>
         </dependency>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
+            <groupId>org.jetbrains.spek</groupId>
+            <artifactId>spek</artifactId>
+            <version>${spek.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
