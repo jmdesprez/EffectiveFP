@@ -1,7 +1,13 @@
 import exceptions.ValidationException
 import exceptions.isFatal
 
-fun <T> (() -> T).toResult() = Result.of(this)
+val <T> (() -> T).result: () -> Result<T> get() = { Result.of(this) }
+val <T, A> ((A) -> T).result: (A) -> Result<T> get() = { a -> Result.of({ this(a) }) }
+val <T, A, B> ((A, B) -> T).result: (A, B) -> Result<T> get() = { a, b -> Result.of({ this(a, b) }) }
+val <T, A, B, C> ((A, B, C) -> T).result: (A, B, C) -> Result<T> get() = { a, b, c -> Result.of({ this(a, b, c) }) }
+val <T, A, B, C, D> ((A, B, C, D) -> T).result: (A, B, C, D) -> Result<T> get() = { a, b, c, d -> Result.of({ this(a, b, c, d) }) }
+
+fun <T> (() -> T).toResult() = { Result.of(this) }
 fun <T : Exception> T.toResult() = Result.failure<Any>(this)
 fun <T> T.toResult() = Result.success(this)
 fun <T> T.validate(errorMessage: String = "Validation error", validator: T.() -> Boolean): Result<T> = toResult().validate(errorMessage, validator)
